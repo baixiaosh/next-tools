@@ -17,9 +17,13 @@ interface IInitProps {
 
 class Index extends React.Component<IProps, {}> {
     static getInitialProps({ reduxStore, req }: IInitProps) {
+        console.log('store-1-', reduxStore.getState());
         reduxStore.dispatch(betaAction.betaChange());
-        console.log('store--', reduxStore.getState());
+        console.log('store-2-', reduxStore.getState());
         return reduxStore.getState();
+    }
+    componentDidMount() {
+        console.log('----', this.props);
     }
     handleClick() {
         // console.log(this.props);
@@ -27,7 +31,7 @@ class Index extends React.Component<IProps, {}> {
     }
     render() {
         const { beta } = this.props;
-        console.log('----', this.props);
+        console.log('22----', this.props);
         return (
             <div>
                 <Head>
