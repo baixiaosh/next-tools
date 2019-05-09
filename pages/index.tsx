@@ -1,17 +1,33 @@
 import React from 'react';
 import Head from 'next/head';
+import * as http from 'http';
+import { Store, Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import betaAction from '../redux/action/beta';
 import './index.less';
 
 interface IProps {
-    test: string;
+    beta: any;
+    dispatch: Dispatch;
+}
+interface IInitProps {
+    reduxStore: Store;
+    req: http.IncomingMessage;
 }
 
 class Index extends React.Component<IProps, {}> {
-    static async getInitialProps() {
-        return { test: 'sb' };
+    static getInitialProps({ reduxStore, req }: IInitProps) {
+        reduxStore.dispatch(betaAction.betaChange());
+        console.log('store--', reduxStore.getState());
+        return reduxStore.getState();
+    }
+    handleClick() {
+        // console.log(this.props);
+        this.props.dispatch(betaAction.betaChange());
     }
     render() {
-        const { test } = this.props;
+        const { beta } = this.props;
+        console.log('----', this.props);
         return (
             <div>
                 <Head>
@@ -19,11 +35,13 @@ class Index extends React.Component<IProps, {}> {
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 </Head>
                 <div className="xxx">
-                    <p>Hello word {test}</p>
+                    <p>Hello {beta.text}</p>
+                    <button onClick={this.handleClick.bind(this)}>click</button>
+                    <p>{beta.text}</p>
                 </div>
             </div>
         );
     }
 }
 
-export default Index;
+export default connect(state => state)(Index);
