@@ -3,8 +3,10 @@ import Head from 'next/head';
 import * as http from 'http';
 import { Store, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import betaAction from '../redux/action/beta';
 import './index.less';
+import Loading from '../components/Loading';
+
+import betaAction from '../redux/action/beta';
 
 interface IProps {
     beta: any;
@@ -39,10 +41,11 @@ class Index extends React.Component<IProps, {}> {
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 </Head>
                 <div className="xxx">
-                    <p>Hello {beta.text}</p>
+                    <p className="color">Hello {beta.text}</p>
                     <button onClick={this.handleClick.bind(this)}>click</button>
                     <p>{beta.text}</p>
                 </div>
+                <Loading />
             </div>
         );
     }
