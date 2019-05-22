@@ -3,20 +3,22 @@ import Head from 'next/head';
 
 import axios from 'axios';
 
-interface IState {
-    data: [];
-}
-
 interface User {
     id: number;
     username: String;
+}
+
+interface IState {
+    data: [];
+    user: any;
 }
 
 class Index extends React.Component<{}, IState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            user: {}
         };
     }
 
@@ -28,9 +30,15 @@ class Index extends React.Component<{}, IState> {
                 data: data
             });
         });
+        axios.post('/api/1').then(res => {
+            let data = res.data;
+            this.setState({
+                user: data
+            });
+        });
     }
     render() {
-        const { data } = this.state;
+        const { data, user } = this.state;
         return (
             <div>
                 <Head>
@@ -48,6 +56,7 @@ class Index extends React.Component<{}, IState> {
                         </div>
                     ))}
                 </div>
+                <div>getById:1 ===== {user.username}</div>
             </div>
         );
     }

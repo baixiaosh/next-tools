@@ -40,7 +40,7 @@ app.prepare().then(() => {
         ctx.body = users;
     });
 
-    router.get('/api/:id', async ctx => {
+    router.post('/api/:id', async ctx => {
         let user = await User.findOne({
             where: {
                 id: ctx.params.id
