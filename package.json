@@ -24,6 +24,7 @@
         "koa-router": "^7.4.0",
         "koa2-cors": "^2.0.6",
         "less": "^3.9.0",
+        "moment": "^2.24.0",
         "mysql2": "^1.6.5",
         "next": "^8.1.0",
         "next-compose-plugins": "^2.2.0",

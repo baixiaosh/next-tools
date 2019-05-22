@@ -4,7 +4,7 @@ const json = require('koa-json');
 const cors = require('koa2-cors');
 const Router = require('koa-router');
 
-const sequelize = require('./config/sequelize');
+const sequelize = require('./model/sequelize');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -16,6 +16,7 @@ app.prepare().then(() => {
     const router = new Router();
 
     server.use(cors());
+    server.use(json());
     server.use(async (ctx, next) => {
         ctx.set('Cache-Control', 'no-store, must-revalidate');
         ctx.set('X-Powered-By', 'koa2');
@@ -46,7 +47,6 @@ app.prepare().then(() => {
         await handle(ctx.req, ctx.res);
         ctx.respond = false;
     });
-    server.use(json());
     server.use(router.routes());
     server.listen(port, () => {
         console.log(`> Ready on http://localhost:${port}`);

@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import axios from 'axios';
+import moment from 'moment';
 
 const instance = axios.create({
     baseURL: 'http://localhost:3000',
@@ -23,8 +24,8 @@ class Index extends React.Component<IProps, {}> {
         let list = await instance.get('/api');
         let user = await instance.post('/api/1');
         return {
-            data: list.data,
-            user: user.data
+            data: list.data.map(i => ({ ...i, createdAt: moment(i.createdAt).format('YYYY-MM-DD HH:mm:ss'), updatedAt: moment(i.updatedAt).format('YYYY-MM-DD HH:mm:ss') })),
+            user: { ...user.data, createdAt: moment(user.data.createdAt).format('YYYY-MM-DD HH:mm:ss'), updatedAt: moment(user.data.updatedAt).format('YYYY-MM-DD HH:mm:ss') }
         };
     }
 
@@ -46,11 +47,14 @@ class Index extends React.Component<IProps, {}> {
                     {data.map((item: User) => (
                         <div key={item.id}>
                             <span>id:{item.id}</span>---
-                            <span>username:{item.username}</span>
+                            <span>username:{item.username}</span>---
+                            <span>updatedAt:{item.updatedAt}</span>
                         </div>
                     ))}
                 </div>
-                <div>getById:1 ===== {user.username}</div>
+                <div>
+                    getById:1 ===== {user.username}==={user.updatedAt}
+                </div>
             </div>
         );
     }
