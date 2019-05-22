@@ -9,5 +9,6 @@ module.exports = withPlugins([withTypescript, withCss, withLess], {
     },
     lessLoaderOptions: {
         javascriptEnabled: true
-    }
+    },
+    poweredByHeader: false
 });

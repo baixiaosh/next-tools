@@ -22,7 +22,7 @@ interface IInitProps {
 
 class Index extends React.Component<IProps, {}> {
     static getInitialProps({ reduxStore, res, req }: IInitProps) {
-        // console.log('store-1-', res, req);
+        // console.log('store-1-', res);
         reduxStore.dispatch(betaAction.betaChange());
         console.log('store-2-', reduxStore.getState());
         return reduxStore.getState();
@@ -50,7 +50,7 @@ class Index extends React.Component<IProps, {}> {
                 </div>
 
                 <Link href="/home">
-                    <a>123</a>
+                    <a>home</a>
                 </Link>
                 <Loading />
             </div>

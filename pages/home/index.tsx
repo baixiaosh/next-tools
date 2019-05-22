@@ -1,44 +1,38 @@
 import React from 'react';
 import Head from 'next/head';
-
 import axios from 'axios';
+
+const instance = axios.create({
+    baseURL: 'http://localhost:3000',
+    timeout: 1000
+});
 
 interface User {
     id: number;
     username: String;
 }
 
-interface IState {
+interface IProps {
     data: [];
     user: any;
 }
 
-class Index extends React.Component<{}, IState> {
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            data: [],
-            user: {}
+class Index extends React.Component<IProps, {}> {
+    static async getInitialProps() {
+        // console.log('store-1-', res);
+        let list = await instance.get('/api');
+        let user = await instance.post('/api/1');
+        return {
+            data: list.data,
+            user: user.data
         };
     }
 
     componentDidMount() {
         console.log('----', this.props);
-        axios.get('/api').then(res => {
-            let data = res.data;
-            this.setState({
-                data: data
-            });
-        });
-        axios.post('/api/1').then(res => {
-            let data = res.data;
-            this.setState({
-                user: data
-            });
-        });
     }
     render() {
-        const { data, user } = this.state;
+        const { data = [], user } = this.props;
         return (
             <div>
                 <Head>
