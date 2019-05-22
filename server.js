@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const next = require('next');
 const json = require('koa-json');
+const cors = require('koa2-cors');
 const Router = require('koa-router');
 const sequelize = require('./config/sequelize');
 
@@ -13,11 +14,10 @@ app.prepare().then(() => {
     const server = new Koa();
     const router = new Router();
 
+    server.use(cors());
     server.use(async (ctx, next) => {
-        ctx.set('Access-Control-Allow-Origin', '*');
-        ctx.set('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, POST, DELETE');
         ctx.set('Cache-Control', 'no-store, must-revalidate');
-        ctx.append('X-Powered-By', 'koa2');
+        ctx.set('X-Powered-By', 'koa2');
         await next();
     });
     server.use(async (ctx, next) => {
