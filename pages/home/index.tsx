@@ -10,7 +10,9 @@ const instance = axios.create({
 
 interface User {
     id: number;
-    username: String;
+    username: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 interface IProps {
@@ -24,7 +26,11 @@ class Index extends React.Component<IProps, {}> {
         let list = await instance.get('/api');
         let user = await instance.post('/api/1');
         return {
-            data: list.data.map(i => ({ ...i, createdAt: moment(i.createdAt).format('YYYY-MM-DD HH:mm:ss'), updatedAt: moment(i.updatedAt).format('YYYY-MM-DD HH:mm:ss') })),
+            data: list.data.map((i: User) => ({
+                ...i,
+                createdAt: moment(i.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+                updatedAt: moment(i.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+            })),
             user: { ...user.data, createdAt: moment(user.data.createdAt).format('YYYY-MM-DD HH:mm:ss'), updatedAt: moment(user.data.updatedAt).format('YYYY-MM-DD HH:mm:ss') }
         };
     }
