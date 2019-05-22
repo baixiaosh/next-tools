@@ -3,6 +3,7 @@ const next = require('next');
 const json = require('koa-json');
 const cors = require('koa2-cors');
 const Router = require('koa-router');
+
 const sequelize = require('./config/sequelize');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
