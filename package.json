@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "next",
+        "dev": "node server.js",
         "build": "next build",
-        "start": "next start"
+        "start": "NODE_ENV=production node server.js"
     },
     "keywords": [],
     "author": "",
@@ -18,7 +18,12 @@
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-less": "^1.0.1",
         "@zeit/next-typescript": "^1.1.1",
+        "axios": "^0.18.0",
+        "koa": "^2.7.0",
+        "koa-json": "^2.0.2",
+        "koa-router": "^7.4.0",
         "less": "^3.9.0",
+        "mysql2": "^1.6.5",
         "next": "^8.1.0",
         "next-compose-plugins": "^2.2.0",
         "react": "^16.8.6",
@@ -26,6 +31,7 @@
         "react-redux": "^7.0.3",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
+        "sequelize": "^5.8.6",
         "typescript": "^3.4.5"
     }
 }

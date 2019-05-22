@@ -1,8 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import * as http from 'http';
 import { Store, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+
 import './index.less';
 import Loading from '../components/Loading';
 
@@ -14,12 +16,13 @@ interface IProps {
 }
 interface IInitProps {
     reduxStore: Store;
+    res: http.IncomingMessage;
     req: http.IncomingMessage;
 }
 
 class Index extends React.Component<IProps, {}> {
-    static getInitialProps({ reduxStore, req }: IInitProps) {
-        console.log('store-1-', reduxStore.getState());
+    static getInitialProps({ reduxStore, res, req }: IInitProps) {
+        // console.log('store-1-', res, req);
         reduxStore.dispatch(betaAction.betaChange());
         console.log('store-2-', reduxStore.getState());
         return reduxStore.getState();
@@ -45,6 +48,10 @@ class Index extends React.Component<IProps, {}> {
                     <button onClick={this.handleClick.bind(this)}>click</button>
                     <p>{beta.text}</p>
                 </div>
+
+                <Link href="/home">
+                    <a>123</a>
+                </Link>
                 <Loading />
             </div>
         );
