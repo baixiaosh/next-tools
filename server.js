@@ -45,7 +45,7 @@ app.prepare().then(() => {
 
   router.get('/case/:id', async ctx => {
     const { id } = ctx.params;
-    ctx.res.statusCode = 200;
+    ctx.res.statusCode = 200; //更改状态码
     await app.render(ctx.req, ctx.res, '/case', { id });
     ctx.respond = false;
   });
