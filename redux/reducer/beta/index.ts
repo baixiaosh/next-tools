@@ -1,7 +1,7 @@
 import '../../action/beta';
 import types from '../../types/beta';
 const initialState = {
-    text: 'World'
+    text: '23423432423'
 };
 const indexFilter = (state = initialState, action: any) => {
     let copyState = { ...state };

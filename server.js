@@ -43,6 +43,12 @@ app.prepare().then(() => {
     ctx.body = user;
   });
 
+  router.get('/', async ctx => {
+    ctx.res.statusCode = 200; //更改状态码
+    await app.render(ctx.req, ctx.res, '/');
+    ctx.respond = false;
+  });
+
   router.get('/case/:id', async ctx => {
     const { id } = ctx.params;
     ctx.res.statusCode = 200; //更改状态码

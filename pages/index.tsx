@@ -5,6 +5,7 @@ import * as http from 'http';
 import { Store, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
+import 'react-quill/dist/quill.snow.css';
 import './index.less';
 import Loading from '../components/Loading';
 
@@ -20,23 +21,40 @@ interface IInitProps {
   req: http.IncomingMessage;
 }
 
-class Index extends React.Component<IProps, {}> {
+class Index extends React.Component<IProps, any> {
   static getInitialProps({ reduxStore, res, req }: IInitProps) {
     // console.log('store-1-', res);
     reduxStore.dispatch(betaAction.betaChange());
     console.log('store-2-', reduxStore.getState());
     return reduxStore.getState();
   }
+  public ReactQuill: any;
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      text: ''
+    };
+    if (typeof window !== 'undefined') {
+      this.ReactQuill = require('react-quill');
+    }
+  }
   componentDidMount() {
     console.log('----', this.props);
+  }
+  handleChange(val: string) {
+    this.setState({ text: val });
+    console.log('val: ', val);
   }
   handleClick() {
     // console.log(this.props);
     this.props.dispatch(betaAction.betaChange());
   }
   render() {
+    // console.log('22----', this.props, this.state);
+    console.log('22----', this.props.beta, this.state);
     const { beta } = this.props;
-    console.log('22----', this.props);
+    const { text } = this.state;
+    const ReactQuill = this.ReactQuill;
     return (
       <div>
         <Head>
@@ -55,6 +73,9 @@ class Index extends React.Component<IProps, {}> {
         <Link href="/case?id=2" as="/case/2">
           <a>case/2</a>
         </Link>
+
+        {ReactQuill && <ReactQuill className="editor" placeholder="请输入内容" onChange={this.handleChange.bind(this)} value={text} />}
+
         <Loading />
       </div>
     );
