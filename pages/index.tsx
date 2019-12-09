@@ -18,7 +18,7 @@ interface IInitProps {
 }
 
 class Index extends React.Component<IProps, {}> {
-    static getInitialProps({ reduxStore, req }: IInitProps) {
+    static getInitialProps({ reduxStore }: IInitProps) {
         console.log('store-1-', reduxStore.getState());
         reduxStore.dispatch(betaAction.betaChange());
         console.log('store-2-', reduxStore.getState());
